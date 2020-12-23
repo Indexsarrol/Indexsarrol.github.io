@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>测试第一篇博客</title>
+      <link href="2020/12/23/hello-world/"/>
+      <url>2020/12/23/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>这是我写的第一篇博客</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> React </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
