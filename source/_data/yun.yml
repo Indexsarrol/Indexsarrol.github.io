@@ -3,14 +3,18 @@ avatar:
   url: /images/avatar.jpg
   rounded: true
   opacity: 1
-  mickey_mouse: false
+  mickey_mouse: true
   status:
     enable: true
     emoji: 😘
     message: 都进来了，浏览器点个收藏呗！
 
 language: zh-CN
-
+codeblock:
+  copy_btn: true
+  prismjs:
+    light: default
+    dark: tomorrow
 colors:
   primary: "#1890FF"
   selection_bg: "#1890FF" # 选取文字时的背景色
@@ -86,7 +90,7 @@ trianglify:
   opacity: 0.5
 
 fireworks:
-  enable: false
+  enable: true
   colors:
     - "102, 167, 221"
     - "62, 131, 225"
