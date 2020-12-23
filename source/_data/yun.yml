@@ -1,0 +1,153 @@
+avatar:
+  enable: true
+  url: /images/avatar.jpg
+  rounded: true
+  opacity: 1
+  mickey_mouse: false
+  status:
+    enable: true
+    emoji: 😘
+    message: 都进来了，浏览器点个收藏呗！
+
+language: zh-CN
+
+colors:
+  primary: "#1890FF"
+  selection_bg: "#1890FF" # 选取文字时的背景色
+
+wordcloud:
+  enable: true
+
+tags:
+  Vue: "#4fc08d"
+  Hexo: "#0E834D"
+  CSS: "#5298d1"
+  Node.js: "#026E00"
+  Git: "#F14E32"
+  React: "#61dafb"
+  Webpack: "#353490"
+  Python: "#3776ab"
+  VS Code: "#0066B8"
+  JavaScript: "#F4DF4F"
+  TypeScript: "#317AC6"
+  ES6: "#F4DF4F"
+  Laravel: "#F4645F"
+
+categories:
+  笔记: dimgray
+
+social:
+  - name: RSS
+    # set rss in your root config
+    # https://github.com/hexojs/hexo-generator-feed
+    link: /atom.xml # config.feed.path
+    icon: icon-rss-line
+    color: orange
+  - name: QQ
+    # https://isux.tencent.com/wp-content/uploads/2016/05/20160512101222609.pdf
+    link: https://wpa.qq.com/msgrd?v=3&uin=843696490&site=qq&menu=yes
+    icon: icon-qq-line
+    color: "#12B7F5"
+  - name: GitHub
+    link: https://github.com/Indexsarrol
+    icon: icon-github-line
+    color: "#181717"
+  - name: E-Mail
+    link: mailto:843696490@qq.com
+    icon: icon-mail-line
+    color: "#8E71C1"
+  - name: 网易云音乐
+    link: https://music.163.com/#/user/home?id=355354344
+    icon: icon-netease-cloud-music-line
+    color: "#C10D0C"
+  - name: 哔哩哔哩动画
+    link: https://space.bilibili.com/1579790
+    icon: icon-bilibili-line
+    color: "#FF8EB3"
+
+banner:
+  enable: true
+  title: 习惯尝试，尝试习惯
+  src: /js/ui/banner.js
+  border: true
+  cloud:
+    enable: true
+    color: "white"
+  go_down:
+    enable: true
+    icon: icon-arrow-down-s-line
+
+trianglify:
+  enable: false
+  cellSize: 75
+  width: 800
+  height: 600
+  palette: '["YlGnBu", "GnBu", "Purples", "Blues"]'
+  opacity: 0.5
+
+fireworks:
+  enable: false
+  colors:
+    - "102, 167, 221"
+    - "62, 131, 225"
+    - "33, 78, 194"
+
+cursor:
+  enable: true
+  default: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/pointer.cur
+  pointer: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur
+  text: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/text.cur
+
+
+menu:
+  home:
+    path: /
+    icon: icon-home-4-line
+  list:
+    - type: archives
+      path: /archives/
+      icon: icon-archive-line
+    - type: categories
+      path: /categories/
+      icon: icon-folder-2-line
+    - type: tags
+      path: /tags/
+      icon: icon-price-tag-3-line
+    # - path: https://www.yunyoujun.cn
+    #   icon: icon-cloud-line
+    #   count: 你猜
+  # custom:
+  #   title: 文档
+  #   path: https://yun.yunyoujun.cn
+  #   icon: icon-settings-line
+
+
+pages:
+  - name: 我的小伙伴们
+    url: /links/
+    icon: icon-genderless-line
+    color: dodgerblue
+
+engine_search:
+  enable: false
+
+local_search:
+  enable: true
+  src: /js/search/local-search.js
+  placeholder: 搜点啥呢...
+
+footer:
+  since: 2020
+  icon:
+    name: icon-cloud-line
+    animated: true
+    color: "#0078E7"
+  beian:
+    enable: true
+    icp: 苏ICP备xxxxxxxx号
+  live_time:
+    enable: true
+    prefix: 本博客开始运行于
+    suffix: (●'◡'●)
+    start_time: "2020-12-23T00:00:00"
+
