@@ -297,6 +297,6 @@ module.exports = Complier;
 
 这个时候，我们的编译器的功能就完成了，接下来我们来看看效果：
 
-<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201220180829698.png" alt="image-20201220180829698" style="zoom:%;" />
+![image-20201224205107321](https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20201224205107321.png)
 
 这样，我们就编写了一个简易的webpack，在下篇文章中我们来看看如何打包多文件。尽请期待吧~
