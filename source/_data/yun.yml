@@ -35,7 +35,7 @@ reward:
       icon: icon-wechat-pay-line
 
 wordcloud:
-  enable: true
+  enable: false
 
 tags:
   Vue: "#4fc08d"
