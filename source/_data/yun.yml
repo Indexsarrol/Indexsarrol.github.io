@@ -51,9 +51,10 @@ tags:
   TypeScript: "#317AC6"
   ES6: "#F4DF4F"
   Laravel: "#F4645F"
-
+  JS引擎: "#353490"
 categories:
-  笔记: dimgray
+  Webpack: rgb(89, 196, 230)
+  你不知道的JS: rgb(252, 206, 16)
 
 social:
   - name: RSS

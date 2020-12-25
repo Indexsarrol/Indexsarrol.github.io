@@ -1,5 +1,6 @@
 ---
 title: Webpack原理以及手写Webpack
+author: Indexsarrol
 categories: 
 - Webpack
 tags:
@@ -16,6 +17,8 @@ tags:
 3. 最后我们通过命令 $ npx webpack 来对指定文件进行打包。
 
 所以，综上所述webpack就是一个工具模块，提供了webpack指令，所以要想实现webpack必须先实现一个工具模块。
+
+<!-- more -->
 
 ## 如何实现一个基于Node的工具模块
 
