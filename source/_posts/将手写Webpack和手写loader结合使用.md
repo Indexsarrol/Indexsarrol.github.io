@@ -1,5 +1,6 @@
 ---
 title: 将手写Webpack和手写loader结合使用
+author: Indexsarrol
 categories: 
 - Webpack
 tags:
@@ -23,7 +24,7 @@ html, body {
     }
 }
 ```
-
+<!-- more -->
 ```js
 // index.js
 require('./index.less');

@@ -1,5 +1,6 @@
 ---
 title: webpack原理之手写loader源码
+author: Indexsarrol
 categories: 
 - Webpack
 tags:
@@ -10,7 +11,7 @@ tags:
 ​	在我们正式开始手写loader之前，我们先来看看loader到底是个什么东西：
 
 ​	loader：loader的本质其实就是一个导出为函数的一个js模块，该函数接收一个参数source，source的内容，compiler 需要得到最后一个 loader 产生的处理结果。这个处理结果应该是 `String` 或者 `Buffer`（被转换为一个 string），代表了模块的 JavaScript 源码。另外还可以传递一个可选的 SourceMap 结果（格式为 JSON 对象）。
-
+<!-- more -->
 那么loader分为两种：同步loader和异步loader。所谓同步loader表示只要处理单个结果，使用同步模式然后直接返回结果；如果我们需要处理多个结果，我们则需要使用内置api-->this.async()，const  callback = this.async()；其内部原理就只是一个闭包，所以callback是一个函数，它接收4个参数：
 
 第一个参数必须是 Error 或者 null；

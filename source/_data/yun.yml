@@ -19,8 +19,23 @@ colors:
   primary: "#1890FF"
   selection_bg: "#1890FF" # 选取文字时的背景色
 
-wordcloud:
+reward:
   enable: true
+  icon: icon-hand-coin-line
+  comment: 觉得不错？给个关（zan）注（zhu）呗！.
+  # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
+  methods:
+    - name: 支付宝
+      path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/alipay-qrcode.jpg
+      color: "#00A3EE"
+      icon: icon-alipay-line
+    - name: 微信支付
+      path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/wechatpay-qrcode.jpg
+      color: "#2DC100"
+      icon: icon-wechat-pay-line
+
+wordcloud:
+  enable: false
 
 tags:
   Vue: "#4fc08d"
@@ -36,9 +51,10 @@ tags:
   TypeScript: "#317AC6"
   ES6: "#F4DF4F"
   Laravel: "#F4645F"
-
+  JS引擎: "#353490"
 categories:
-  笔记: dimgray
+  Webpack: rgb(89, 196, 230)
+  你不知道的JS: rgb(252, 206, 16)
 
 social:
   - name: RSS
@@ -151,7 +167,7 @@ footer:
     icp: 苏ICP备xxxxxxxx号
   live_time:
     enable: true
-    prefix: 本博客开始运行于
+    prefix: 本空间已经运行了
     suffix: (●'◡'●)
     start_time: "2020-12-23T00:00:00"
 
