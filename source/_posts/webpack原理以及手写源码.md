@@ -8,34 +8,34 @@ tags:
 ---
 ## Webpack如何打包文件
 
-在我们正式开始手写webpack之前，我们先来看看webpack是如何打包文件的，在之前的文章中，我们说过，如果想利用webpack来对我们的项目进行打包，可分为三个步骤：
+>在我们正式开始手写`webpack`之前，我们先来看看`webpack`是如何打包文件的，在之前的文章中，我们说过，如果想利用`webpack`来对我们的项目进行打包，可分为三个步骤：
 
-1. 我们需要安装webpack以及webpack-cli，这里需要我们注意一点的是，webpack-cli 建议安装3.x的版本，否则会出现其他异常问题(因为webpack5刚出来，可能是兼容没有做好)；
+1. 我们需要安装`webpack`以及`webpack-cli`，这里需要我们注意一点的是，`webpack-cli` 建议安装`3.x`的版本，否则会出现其他异常问题(因为`webpack5`刚出来，可能是兼容没有做好)；
 
-2. 我们需要指定配置文件名称需为webpack.config.js，在其内部进行webpack的配置；
+2. 我们需要指定配置文件名称需为`webpack.config.js`，在其内部进行`webpack`的配置；
 
-3. 最后我们通过命令 $ npx webpack 来对指定文件进行打包。
+3. 最后我们通过命令 `$ npx webpack` 来对指定文件进行打包。
 
-所以，综上所述webpack就是一个工具模块，提供了webpack指令，所以要想实现webpack必须先实现一个工具模块。
+>所以，综上所述`webpack`就是一个工具模块，提供了`webpack`指令，所以要想实现`webpack`必须先实现一个工具模块。
 
 <!-- more -->
 
 ## 如何实现一个基于Node的工具模块
 
-1. 首先，我们先新建一个目录，名称为jswebpack，在该文件夹内部新建一个node_modules文件夹，在该文件夹下新建jspack目录作为工具模块，然后打开控制台，输入以下命令进行初始化：
+1. 首先，我们先新建一个目录，名称为`jswebpack`，在该文件夹内部新建一个`node_modules`文件夹，在该文件夹下新建`jspack`目录作为工具模块，然后打开控制台，输入以下命令进行初始化：
 
    ```shell
    $ npm init
    ```
 
-2. 在jspack文件夹下，新建一个bin目录，内部新建一个index.js文件，在index.js中添加以下代码：
+2. 在`jspack`文件夹下，新建一个`bin`目录，内部新建一个`index.js`文件，在`index.js`中添加以下代码：
 
    ```javascript
    #!/usr/bin/env node
    console.log('hello world！')
    ```
 
-   然后在package.json中添加如下代码：
+   然后在`package.json`中添加如下代码：
 
    ```json
    {
@@ -57,17 +57,17 @@ tags:
    }
    ```
 
-   3. 最后我们在jspack文件夹对应的命令行中输入：
+3. 最后我们在`jspack`文件夹对应的命令行中输入：
 
       ```sh
       $ npm link
       ```
 
-到此，我们可以通过在控制台 npx jspack 命令，如果控制台输出'hello world'则表示我们的工具模块已经实现了。
+>到此，我们可以通过在控制台 `npx jspack` 命令，如果控制台输出'`hello world`'则表示我们的工具模块已经实现了。
 
 ## 配置Webpack
 
-由上，我们实现了一个工具模块，接下来，我们来配置一个简易版的webpack.config.js：
+>由上，我们实现了一个工具模块，接下来，我们来配置一个简易版的`webpack.config.js`：
 
 ```javascript
 // webpack.config.js
@@ -83,11 +83,11 @@ module.exports = {
 };
 ```
 
-然后我们在项目根目录下新建src文件夹，在内部新建index.js文件，用于编写项目打包内容。
+然后我们在项目根目录下新建`src`文件夹，在内部新建`index.js`文件，用于编写项目打包内容。
 
 ## 分析Webpack打包后的文件
 
-我们在打包之后，可以去观察以下打包过后的源码，有的同学可能会说，那玩意太难懂了，不知道什么意思，其实我们只要把注释和一些没必要的代码干掉，我们就得到了如下的代码：
+>我们在打包之后，可以去观察以下打包过后的源码，有的同学可能会说，那玩意太难懂了，不知道什么意思，其实我们只要把注释和一些没必要的代码干掉，我们就得到了如下的代码：
 
 ```js
 (function (modules) { // webpackBootstrap
@@ -170,7 +170,7 @@ module.exports = {
 });
 ```
 
-如果我们改变了config配置文件，我们再重新打包几次观察以下，其实变化的只有以下部分:
+如果我们改变了`config`配置文件，我们再重新打包几次观察以下，其实变化的只有以下部分:
 
 ```js
 (function (modules) {
@@ -184,15 +184,15 @@ module.exports = {
 });
 ```
 
-所以，我们通过观察打包之后的代码我们可以清楚的知道，其实我们只需要两个变量即可，一个路径和内部代码。所以我们可以把这些变量放到一个对象中，对象的Key就是入口文件路径，Value就是入口文件内部的代码。其他剩下的代码，我们可以利用EJS当作模板去传到生成的文件中。
+>所以，我们通过观察打包之后的代码我们可以清楚的知道，其实我们只需要两个变量即可，一个路径和内部代码。所以我们可以把这些变量放到一个对象中，对象的`Key`就是入口文件路径，`Value`就是入口文件内部的代码。其他剩下的代码，我们可以利用`EJS`当作模板去传到生成的文件中。
 
-首先，我们需要安装ejs：
+>首先，我们需要安装`ejs`：
 
 ```shell
 $ npm install ejs -S
 ```
 
-然后修改内部变量为<%-variable%>，并将该模板后缀改为.ejs，然后保存在lib文件夹下:
+>然后修改内部变量为`<%-variable%>`，并将该模板后缀改为`.ejs`，然后保存在lib文件夹下:
 
 ```js
 (function (modules) {
@@ -208,9 +208,10 @@ $ npm install ejs -S
 
 ## 开始手写Webpack
 
-​		接下来，我们就正式进入手写简易webpack。还记得我们在jspack中bin目录下的index.js文件吗？这个就是我们jspack的入口文件，让我们回想以下Webpack如何打包文件，我们应该先去读取webpack.config.js的配置项：
+> 接下来，我们就正式进入手写简易`webpack`。还记得我们在`jspack`中`bin`目录下的`index.js`文件吗？这个就是我们`jspack`的入口文件，让我们回想以下`Webpack`如何打包文件，我们应该先去读取`webpack.config.js`的配置项：
+>
 
-​	那么index.js中应该这么写，首先我们肯定是要操作某一个文件的，所以我们就需要用到Node中的path模块。若想读取文件内容我们则要知道该文件的路径是什么，代码如下：
+​	那么`index.js`中应该这么写，首先我们肯定是要操作某一个文件的，所以我们就需要用到`Node`中的`path`模块。若想读取文件内容我们则要知道该文件的路径是什么，代码如下：
 
 ```javascript
 // bin/index.js
@@ -220,7 +221,7 @@ const configPath = path.resolve(process.cwd(), 'webpack.config.js');
 const configContent = require(configPath);
 ```
 
-那么既然配置项我们获取到了，那就需要有一个函数或者方法来充当编译器，所以我们在jspack下新建一个lib/Complier.js：
+那么既然配置项我们获取到了，那就需要有一个函数或者方法来充当编译器，所以我们在`jspack`下新建一个`lib/Complier.js`：
 
 ```js
 // lib/Complier.js
@@ -233,7 +234,7 @@ class Complier {
 module.exports = Complier
 ```
 
-声明好了编译器之后，我们将 Complier 引入到 bin/index.js 中，并且实例化：
+声明好了编译器之后，我们将 `Complier` 引入到 `bin/index.js` 中，并且实例化：
 
 ```js
 // bin/index.js
@@ -247,7 +248,7 @@ const complier = new Complier(configContent);
 // 当使用命令行 npx jspack 时会调用 Complier 类中的run方法
 ```
 
-所以这个时候我们再返回到 lib/Complier.js 处理编译的逻辑：
+所以这个时候我们再返回到 `lib/Complier.js` 处理编译的逻辑：
 
 ```js
 // lib/Complier.js
@@ -302,4 +303,4 @@ module.exports = Complier;
 
 ![image-20201224205107321](https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20201224205107321.png)
 
-这样，我们就编写了一个简易的webpack，在下篇文章中我们来看看如何打包多文件。尽请期待吧~
+这样，我们就编写了一个简易的`webpack`，在下篇文章中我们来看看如何打包多文件。尽请期待吧~
