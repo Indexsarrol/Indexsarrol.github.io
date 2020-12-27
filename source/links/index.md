@@ -3,7 +3,7 @@ title: links
 date: 2020-12-23 15:34:00
 keywords: 链接
 description: 云游的小伙伴们
-comments: true
+comments: false
 links:
   - url: https://yunyoujun.cn
     avatar: https://cdn.jsdelivr.net/gh/YunYouJun/yunyoujun.github.io/images/avatar.jpg

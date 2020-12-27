@@ -9,6 +9,8 @@ avatar:
     emoji: 😘
     message: 都进来了，浏览器点个收藏呗！
 
+albums:
+  enable: true
 language: zh-CN
 codeblock:
   copy_btn: true
@@ -26,11 +28,11 @@ reward:
   # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
   methods:
     - name: 支付宝
-      path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/alipay-qrcode.jpg
+      path: https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/ali-pay-code.png
       color: "#00A3EE"
       icon: icon-alipay-line
     - name: 微信支付
-      path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/wechatpay-qrcode.jpg
+      path: https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/wechat-pay-code.png
       color: "#2DC100"
       icon: icon-wechat-pay-line
 
@@ -136,10 +138,10 @@ menu:
     # - path: https://www.yunyoujun.cn
     #   icon: icon-cloud-line
     #   count: 你猜
-  # custom:
-  #   title: 文档
-  #   path: https://yun.yunyoujun.cn
-  #   icon: icon-settings-line
+  custom:
+    title: 相册
+    path: /albums/
+    icon: icon-gallery-line
 
 
 pages:
@@ -156,6 +158,33 @@ local_search:
   src: /js/search/local-search.js
   placeholder: 搜点啥呢...
 
+github_issues:
+  enable: false
+
+comment:
+  tips: 
+    - 欢迎使用Valine评论系统
+  candidates:
+    - valine
+
+valine:
+  enable: true
+  appId: yHy5QtvANleKKb3vtYuN4eUY-MdYXbMMI # your leancloud application appid
+  appKey: vFNzith4BlgLv5TI1wlnvVu4 # your leancloud application appkey
+  # https://github.com/DesertsP/Valine-Admin
+  # https://valine.yunyoujun.cn
+  placeholder: 写的不错？给个好评？
+  avatar: robohash
+  visitor: true
+  recordIP: true
+  enableQQ: true
+  requiredFields:
+    - nick
+    - mail
+  # 使用 bilibili 表情
+  
+
+
 footer:
   since: 2020
   icon:
@@ -164,7 +193,7 @@ footer:
     color: "#0078E7"
   beian:
     enable: true
-    icp: 苏ICP备xxxxxxxx号
+    icp: 正在申请中哦...
   live_time:
     enable: true
     prefix: 本空间已经运行了
