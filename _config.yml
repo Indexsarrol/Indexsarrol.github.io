@@ -80,6 +80,11 @@ live2d:
     vOffset: -50  # 调节垂直位置
   mobile:
     show: false
+  dialog:
+    # 是否开启对话框
+    enable: true
+    # 是否使用一言
+    hitokoto: true
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
