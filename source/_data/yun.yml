@@ -213,7 +213,7 @@ footer:
     color: "#0078E7"
   beian:
     enable: true
-    icp: 正在申请中哦...
+    icp: 皖ICP备2021000236
   live_time:
     enable: true
     prefix: 本空间已经运行了
