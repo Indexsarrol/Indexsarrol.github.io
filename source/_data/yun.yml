@@ -166,7 +166,7 @@ menu:
 pages:
   - name: 我的小伙伴们
     url: /links/
-    icon: icon-genderless-line
+    icon: icon-open-arm-line
     color: dodgerblue
 
 # 全局搜索
