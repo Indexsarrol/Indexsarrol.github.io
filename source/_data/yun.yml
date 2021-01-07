@@ -65,10 +65,12 @@ tags:
   ES6: "#F4DF4F"
   Laravel: "#F4645F"
   JS引擎: "#353490"
+  手写代码: "#5298d1"
 
 # 分类
 categories:
   Webpack: rgb(89, 196, 230)
+  常用方法: "#0E834D"
   你不知道的JS: rgb(252, 206, 16)
 
 # 常用链接
