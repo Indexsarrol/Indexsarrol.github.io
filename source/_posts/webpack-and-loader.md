@@ -15,13 +15,13 @@ tags:
 <!-- more -->
 那么`loader`分为两种：同步`loader`和异步`loader`。所谓同步`loader`表示只要处理单个结果，使用同步模式然后直接返回结果；如果我们需要处理多个结果，我们则需要使用内置`api-->this.async()，const  callback = this.async()；`其内部原理就只是一个闭包，所以`callback`是一个函数，它接收4个参数：
 
->第一个参数必须是 `Error` 或者 `null`；
+第一个参数必须是 `Error` 或者 `null`；
 
-> 第二个参数是一个 `string` 或者 `Buffer`；
+第二个参数是一个 `string` 或者 `Buffer`；
 
-> 可选的：第三个参数必须是一个可以被这个模块解析的 `source map`；
+可选的：第三个参数必须是一个可以被这个模块解析的 `source map`；
 
-> 可选的：第四个选项，会被 `webpack` 忽略，可以是任何东西（例如一些元数据）。
+可选的：第四个选项，会被 `webpack` 忽略，可以是任何东西（例如一些元数据）。
 
 ```js
 // 同步loader
@@ -42,7 +42,7 @@ module.export = function(source) {
 
 ## 编写一个简易的loader
 
-> ​	接下来我们来编写一个简单的`loader`，用于将代码中的“monday”替换成“sunday”，首先我们新建一个名称为`loader`的目录，再新建一个`ReplaceLoader.js`的`loader`：
+ ​	接下来我们来编写一个简单的`loader`，用于将代码中的“monday”替换成“sunday”，首先我们新建一个名称为`loader`的目录，再新建一个`ReplaceLoader.js`的`loader`：
 >
 
 ```js
@@ -53,7 +53,7 @@ module.export = function(source) {
 }
 ```
 
-> ​	这样我们的简易版的`loader`就结束了，接下来我们再在`webpack.config.js`中使用这个`loader`：
+ ​	这样我们的简易版的`loader`就结束了，接下来我们再在`webpack.config.js`中使用这个`loader`：
 >
 
 ```js
@@ -70,8 +70,8 @@ module: {
 }
 ```
 
-> ​	接下来我们打包试一下`npm run dev`：
->
+ ​	接下来我们打包试一下`npm run dev`：
+
 
 ```js
 // 打包之后的index.js
@@ -96,7 +96,7 @@ console.log("www.sunday.com"); // 由此我们可以看到打包过后变成了s
 
 ​	我们在配置`webpack`的配置项中，当使用到了`loader`之后，我们一般会在`loader`使用内部，添加`options`配置项来传递额外的参数。那么我们在编写`Loader`的时候如何拿到通过`options`传递过来的参数呢?其实有两种方法：
 
->第一种：我们用过`loader`函数中提供的`this`来获取，比如我们配置了如下的`options`：
+第一种：我们用过`loader`函数中提供的`this`来获取，比如我们配置了如下的`options`：
 
 ```js
 // webpack.config.js
@@ -110,7 +110,7 @@ rules: [{
 
 这样我们就可以通过`this.query.name`获取到`options`传递过来的参数；
 
->第二种：我们可以通过第三方模块`loader-utils`获取：
+第二种：我们可以通过第三方模块`loader-utils`获取：
 
 ```js
 // 首先进行安装
@@ -210,7 +210,7 @@ rules: [{
 
 ​	总算到了手写真实的`loader`环节了，摩拳擦掌，开干！！
 
-> ​	首先我们还是在`loader`文件夹下，新建`style-loader.js`和`less-loader.js`文件，然后我们在新建一个`less`文件，并写点`less`代码。首先我们先来实现`less-loader`，第一步离不开安装：`npm install less -D`，然后我们编写`less-loader`；
+ ​	首先我们还是在`loader`文件夹下，新建`style-loader.js`和`less-loader.js`文件，然后我们在新建一个`less`文件，并写点`less`代码。首先我们先来实现`less-loader`，第一步离不开安装：`npm install less -D`，然后我们编写`less-loader`；
 >
 
 ```js
@@ -227,7 +227,7 @@ module.exports = function(source) {
 }
 ```
 
-> ​	到此，我们的`less-loader`就编写完了，其实就是调用了一个`less.render()`的方法，配合异步`loader`生成了`css`代码在回传给`webpack`，再经过`style-loader`处理编译后的`css`代码。那么话不多说，开搞`style-loader`，那么`style-loader`是将我们的`css`代码插入到`head`标签下：
+ ​	到此，我们的`less-loader`就编写完了，其实就是调用了一个`less.render()`的方法，配合异步`loader`生成了`css`代码在回传给`webpack`，再经过`style-loader`处理编译后的`css`代码。那么话不多说，开搞`style-loader`，那么`style-loader`是将我们的`css`代码插入到`head`标签下：
 >
 
 ```js
@@ -250,7 +250,7 @@ module.exports = function(source) {
 }
 ```
 
-> ​	到此，我们的s`tyle-loader`和`less-loader`编写完毕了，是不是so easy，too happy啊！
+ ​	到此，我们的`style-loader`和`less-loader`编写完毕了，是不是so easy，too happy啊！
 >
 
 那我们来使用一下吧：

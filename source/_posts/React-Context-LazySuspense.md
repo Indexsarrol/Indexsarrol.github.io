@@ -10,10 +10,14 @@ tags:
 - JavaScript
 ---
 
+![image-20210406153348856](https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20210406153348856.png)
+
+<!-- more -->
+
 ## 写在前面
 
 虽然目前`React`已经更新到了第17个版本，但是丝毫不影响我今天写这个文章，因为这写东西在日常工作中还是使用的太少了，就当作笔记来记录一下吧。
-<!-- more -->
+
 
 ## React-Context的使用
 
@@ -134,4 +138,140 @@ class Children extends Component {
 
 ## Lazy与Suspense实现延迟加载
 
-后续更新。。。
+### React.lazy()
+
+`lazy`函数可以让你像渲染常规组件一样处理动态引入的组件，换句话说，就是懒加载，它使得我们在页面刚进入加载的时候无需加载指定组件，以便节省性能的消耗，当我们使用某个组件的时候，再进行动态加载。其实在`webpack`中，我们其实也有这种方式，那就是`Code-Spliting`，当我们在项目中使用了很多第三方包的时候，如果没有代码分割就会导致系统体积过大从而造成加载时间过长。
+
+那么怎么进行代码分割呢？最佳方式就是通过`import()`语法。`import()` 有两种使用方式：
+
+- 正常import
+
+  ```jsx
+  import { Button } from 'antd';
+  ```
+
+- 动态引入方式
+
+  ```jsx
+  import('./component.jsx').then(_ => {
+  	console.log('loading...');
+  })
+  ```
+
+当我们在组件中使用了动态引入方式后，`webpack`解析到该语法后（前提是已经配置好了代码分割），会自动的进行代码分割。
+
+说了这么多，那么lazy()方法到底该如何使用呢？我们首先看一下我们在组件中引入其他组件的方式：
+
+```jsx
+import xxx from 'xxx';
+```
+
+> `lazy()`方法接收一个函数，而这个函数去动态的调用`import()`，并返回一个`Promise`，该 `Promise` 需要 `resolve` 一个 `default` `export` 的 `React` 组件。
+
+示例：
+
+```jsx
+import React, { lazy } from 'react';
+const MyComponent = lazy(() => import('./MyConponent.jsx'));
+
+export default class App extends Component {
+    render() {
+        return (
+        	<div>
+            	<MyComponent />
+            </div>
+        )
+    }
+}
+```
+
+如果我们按照上面的代码执行的话，我们会看到控制台有报错：
+
+![image-20210203145047213](https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20210203145047213.png)
+
+大致意思就是说，如果我们使用了`lazy`函数，就需要和`Suspense`进行搭配，所以我们需要再去引入`Suspense`，然后用<Suspense></Suspense>去包裹使用`lazy`函数生成的组件。但是，我们需要在<Suspense>组件中传递`fallback`参数，用来渲染未加载到已加载的空隙代码，例如加载态。
+
+> 注意：这里`fallback`参数只接受`jsx`语法！
+
+代码如下：
+
+```jsx
+import React, { lazy } from 'react';
+const MyComponent = lazy(() => import('./MyConponent.jsx'));
+
+export default class App extends Component {
+    render() {
+        return (
+        	<Suspense fallback={<div>Loading...</div>}>
+            	<MyComponent />
+            </Suspense>
+        )
+    }
+}
+```
+
+接下来，我们运用日常开发的一个小示例来演示一下，使用`lazy`和使用普通`import()`的区别吧。在我们开发中，我们避免不了的使用模态框这类的组件，但是有时候模态框组件内部的代码可能比较复杂，如果我们使用普通的导入方式，就需要在页面加载的时候就进行模态框相关资源的引入，再加上内部逻辑复杂，就大大的降低了加载速度，这个时候我们可以使用`lazy()`方法去进行一个懒加载。
+
+我们首先看一下普通导入的状态，打开我们的控制台，找到Network => All:
+
+![image-20210203151607707](https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20210203151607707.png)
+
+此时我们按F5刷新页面后，弹框的资源已经加载出来了，这就会导致加载时间变长，从而影响性能。
+
+我们再来看一下使用`lazy`和`Suspense`搭配的方式：
+
+```jsx
+// Modal Component
+import React, { Component } from 'react';
+import { Modal } from 'antd';
+
+export default class Modal extends Component {
+    state = {};
+	render() {
+        return (
+        	<Modal>
+            	do somethings
+            </Modal>
+        )
+    }
+}
+```
+
+```jsx
+// Main Component
+import React, { Component, lazy, Suspense } from 'react';
+const Modal = lazy(() => import('./Modal.jsx'));
+class App extends Component {
+    state = {
+        show: false
+    }
+	render () {
+        const { show } = this.state;
+        return (
+        	<Suspense fallback={<div>Loading...</div>}>
+            	<button onClick={() => this.setState({ show: true })}>press</button>
+                { show && <Modal /> }
+            </Suspense>
+        )
+    }
+}
+```
+
+我们打开控制台后，我们发现并没有去加载我们的`Modal`组件，当我们点击后才会出现`Modal`组件的资源：
+
+![image-20210203152141571](https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20210203152141571.png)
+
+![image-20210203152430025](https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20210203152430025.png)
+
+这边还要穿插一个小tips：我们这里可以看到我们的资源名称其实是没有语义化的，看着比较费力，我们可以用我们的魔法注释来修改一下`chunk`的名称。
+
+语法：
+
+```jsx
+import(/* webpackChunkName: "modal" */'./xxx.jsx')
+```
+
+再打开控制台，点击`press`按钮，我们就可以看到我们的`chunk`名称已经变了。
+
+![image-20210203152912079](https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20210203152912079.png)
+
