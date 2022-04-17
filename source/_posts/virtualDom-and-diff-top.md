@@ -166,7 +166,7 @@ patch(container, vnode);
 
 我们打开页面就可以看到如下：
 
-<img src="https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415145047553.png" alt="image-20220415145047553" style="zoom: 67%;" />
+<img src="https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415145047553.png" alt="image-20220415145047553"  />
 
 这样我们就相当于上树了，并且`href`属性内的链接是可以点击的。
 
@@ -349,11 +349,11 @@ btn.onclick = function() {
 
 此时打开浏览器之后，页面先是展示A、B、C、D，当我们点击按钮时，页面就更新为了A、B、C、D、E。这样就可以获取到最新的DOM，然而这个变化不能说明什么，它真正牛叉的地方并不是这里，而是Diff算法会对比`vnode1`、`vnode2`发现在末尾出多了一个E，然后将E给添加上，剩余的A、B、C、D保持不动，那怎么去验证这个说法呢？我们可以打开控制台——元素，然后选取到`<li></li>`标签内容A，将其改为'AAAA'，如果当我们点按钮时，AAAA没有变为A，则说明Diff是最小量更新，也就是没有更新没变化的位置，修改如下图：
 
-<img src="https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415203658950.png" alt="image-20220415203658950" style="zoom: 67%;" />
+<img src="https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415203658950.png" alt="image-20220415203658950"  />
 
 当我们点击按钮有时，发现新增加了一个`<li>E</li>`的标签，同时我们刚刚修改的AAAA还是存在的，这就说明，Diff算法采用的最小量更新，如下图所示：
 
-<img src="https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415204745853.png" alt="image-20220415204745853" style="zoom:67%;" />
+<img src="https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415204745853.png" alt="image-20220415204745853"  />
 
 这时候我们再来玩会这个东西，这玩意有这么智能吗？刚才我们在末尾追加了这个E，如果我们在开头加呢？会发生什么？我们修改一下代码：
 
@@ -391,13 +391,13 @@ btn.onclick = function() {
 
 我们打开控制台后，发现页面上有E、A、B、C、D五个元素，那么他们也是采用最小化更新吗？我们还是用刚才的那种方法试一试，这里为了方便看的清楚，我们把先前的4个元素的内容都改变一下，这是我们再点击按钮，却得到了不可思议的结果。如下：
 
-<img src="https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415205551369.png" alt="image-20220415205551369" style="zoom:67%;" />
+<img src="https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415205551369.png" alt="image-20220415205551369"  />
 
 
 
 结果为什么是这样呢？这里其实Diff算法内部做比较的时候，没有找到key值，所以它认为这几个节点是完全不用的，所以采用全覆盖的方式。就得到了这种结果，这也是我们在循环遍历节点的时候为什么要加上key值的原因，是不是有一种恍然大悟的感觉。我们在这里加上key之后，再来看看：
 
-<img src="https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415210115723.png" alt="image-20220415210115723" style="zoom:67%;" />
+<img src="https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415210115723.png" alt="image-20220415210115723"  />
 
 加上key值之后，我们可以看到Diff算法帮助我们又进行了一次更新，这次更新并没有全部更新， 只更新了一个节点——E。如果我们没有添加key的话，其实diff默认是将节点E放在末尾的，然后将A改为E，B改为A...一直下去：
 
@@ -405,24 +405,8 @@ btn.onclick = function() {
 
 通过以上种种的实验，我们可以得到几点结论：
 
-1. Diff的最小量更新的前提是key，key是该节点的唯一标识，告诉Diff算法，在更改前后它们是同一个节点；
-2. 只有是同一个虚拟节点，才会进行最小量更新，否则就直接暴力拆除旧的、插入新的。那么如果判断是否为同一个虚拟节点呢？答案就是选择器相同，且key相同；
-3. 只进行同层比较，不会跨层比较。
-
-## Diff算法——patch函数
-
-当我们去研究`snabbdom`这个库的时候，发现DIff算法是在`patch`函数种完成的。`patch`函数则是通过`init`函数返回出来的，由于`init`函数跟`Diff`算法没有多大关系，我们在这里就不做过多解释。那么具体在`patch`函数中，Diff到底做了些什么呢？我们一步一步去看，首先，`patch`函数有两个参数`oldVnode`和 `newVnode`，然后针对新旧节点进行比较。流程图如下：
-
-![image-20220415214849569](https://cdn.jsdelivr.net/gh/Indexsarrol/image/blogs/image-20220415214849569.png)
-
-由流程图，我们可以得知，当我们去调用`patch`函数时，内部会执行以下几个步骤。
-
-	1. 判断旧节点是否为虚拟节点，如果不是虚拟节点，则先将该节点转换成虚拟节点。其实这里不难理解，只有大家都是虚拟节点的时候才方便比较，毕竟js对象的比较相较于真实DOM可好比较太多了；
-	1. 如果新旧节点都为虚拟节点，则判断新旧虚拟节点是否为同一个节点，如果为同一个节点，则进行深层次的比较。如果不是，则直接把旧节点删除，将新节点直接插入。
-
-
-
-
-
-未完待续...
+> 1. Diff的最小量更新的前提是key，key是该节点的唯一标识，告诉Diff算法，在更改前后它们是同一个节点；
+> 2. 只有是同一个虚拟节点，才会进行最小量更新，否则就直接暴力拆除旧的、插入新的。那么如果判断是否为同一个虚拟节点呢？答案就是选择器相同，且key相同；
+> 3. 只进行同层比较，不会跨层比较。
+>
 
