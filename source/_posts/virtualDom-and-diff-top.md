@@ -410,3 +410,4 @@ btn.onclick = function() {
 > 3. 只进行同层比较，不会跨层比较。
 >
 
+下篇：[Vue源码之虚拟dom和diff算法（下）](https://indexsarrol.cn/2022/04/15/virtualDom-and-diff-bottom/)
